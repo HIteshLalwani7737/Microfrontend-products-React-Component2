@@ -1,8 +1,16 @@
 import React from 'react';
 
 const addToCart = (item) => () => {
-  const event = new CustomEvent('addToCart', { detail: item });
-  window.dispatchEvent(event);
+  // const event = new CustomEvent('addToCart', { detail: item });
+  // window.dispatchEvent(event);
+    const Http = new XMLHttpRequest();
+    const url='http://192.168.43.153:8080';
+    Http.open("GET", url);
+    Http.send();
+    Http.onreadystatechange=(e)=>{
+        console.log(Http.responseText)
+       document.getElementById("headercomponent").innerHTML = Http.responseText;
+    }
 }
 
 const productItemView = (product, index) => {
@@ -20,7 +28,8 @@ const productItemView = (product, index) => {
 export default () =>
   <section>
     <h2>Products</h2>
+      <div id="headercomponent"></div>
     <ul style={{ display: 'flex', padding: '0' }}>
-      { ['Rice', 'Beans', 'Fries', 'Steak'].map(productItemView) }
+      { ['PG', 'PLOT', 'Property services', 'Rental'].map(productItemView) }
     </ul>
   </section>;
